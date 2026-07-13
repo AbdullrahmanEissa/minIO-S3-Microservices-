@@ -1,0 +1,24 @@
+name: Docker Compose Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker Compose
+        run: docker compose up --build -d
+
+      - name: On Success
+        if: success()
+        run: echo "succeed"
+
+      - name: On Failure
+        if: failure()
+        run: echo "not succeed"
